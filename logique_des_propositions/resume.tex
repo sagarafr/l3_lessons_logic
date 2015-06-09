@@ -1,0 +1,151 @@
+\documentclass[11pt,twoside,openright,a4paper]{report}
+
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\selectlanguage{francais}
+
+\oddsidemargin 0.8cm
+\evensidemargin -0.2cm
+\textwidth 15cm
+\textheight 23cm
+\topmargin -0.5cm
+
+\renewcommand{\familydefault}{\sfdefault}
+
+% table of contents config
+
+\tocloftpagestyle{empty}
+\setcounter{tocdepth}{1}
+
+%
+
+%\usepackage{sectsty}
+\usepackage{fancyhdr}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\quad #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1\quad \thesection}}
+\lhead[\fancyplain{}{\raggedright\slshape\leftmark}]{}
+\chead{}
+\rhead[]{\fancyplain{}{\raggedleft\slshape\rightmark}}
+\lfoot[\fancyplain{}{\thepage}]{}
+\cfoot{}
+\rfoot[]{\fancyplain{\thepage}{\thepage}}
+
+%\setlength{\headrulewidth}{0.4pt}
+%\setlength{\footrulewidth}{0.4pt}
+%\setlength{\plainfootrulewidth}{0.4pt}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+% \usepackage[latin1]{inputenc}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\chapter{Logique des propositions} % (fold)
+\label{cha:logique_des_propositions}
+
+\paragraph{Objectif} % (fold)
+\label{par:objectif}
+
+Donner un fondement formel du raisonnement dans un ensemble restreint d’énoncés
+
+% paragraph objectif (end)
+
+\paragraph{Syntaxe} % (fold)
+\label{par:syntaxe}
+
+\begin{center}
+	\begin{tabular}{ | l | l | }
+		\hline
+		Connecteur & Nom de formule \\
+		\hline
+		$\neg$ & Négation \\
+		\hline
+		$\land$ & Et \\
+		\hline
+		$\lor$ & Ou \\
+		\hline
+		$\Rightarrow$ & Implication \\
+		\hline
+		$\Leftrightarrow$ & Équivalence \\
+		\hline
+		$\bot$ & Faux \\
+		\hline
+		$\top$ & Vrai \\
+		\hline
+	\end{tabular}
+\end{center}
+
+% paragraph syntaxe (end)
+
+\paragraph{Formules atomiques} % (fold)
+\label{par:formules_atomiques}
+
+Une formule atomique est composé de : $\bot$, $\top$ et de variables propositionnelles.
+
+% paragraph formules_atomiques (end)
+
+\paragraph{Formules} % (fold)
+\label{par:formules}
+
+\begin{itemize}
+	\item Les formules atomiques sont des formules.
+	\item Si $A$ est une formule, alors $\neg A$ est une formule.
+	\item Si $A$ et $B$ sont des formules, alors $(A \land B), (A \lor B), (A \Rightarrow B) et (A \Leftrightarrow B)$ sont des formules.		
+\end{itemize}
+
+% paragraph formules (end)
+
+\paragraph{Sous formules} % (fold)
+\label{par:sous_formules}
+
+Chaque formule $F$ a un ensemble de sous-formules $sf(F)$ défini par :
+
+\begin{itemize}
+	\item Si $F$ est une variable propositionnelle alors $sf(F) = \{F\}$.
+	\item Si $F$ est la formule $\neg G$ alors $sf(F) = sf(G) \bigcup \{F\}$.
+	\item Si $F$ est la formule $(G \land H)$, $(G \lor H)$, $(G \Rightarrow H)$ et $(G \Leftrightarrow H)$, alors $sf(F) = sf(G) \bigcup sf(H) \bigcup \{F\}$.
+\end{itemize}
+
+% paragraph sous_formules (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+Les sous formules de $(( p \Rightarrow q ) \land p ) \Rightarrow \neg q$ sont:
+
+\begin{itemize}
+	\item $p$
+	\item $q$
+	\item $(p \Rightarrow q)$
+	\item $\neg q$
+	\item $( p \Rightarrow q ) \land p$
+	\item $(( p \Rightarrow q ) \land p ) \Rightarrow \neg q$
+\end{itemize}
+
+% paragraph exemple (end)
+
+\paragraph{Substitution} % (fold)
+\label{par:substitution}
+
+Soit $F$ une formule, soit $G$ une sous-formule de $F$, soit $H$ une formule. $F_{H\backslash G}$ est obtenu en substituant $H$ à chaque occurrence de $G$ dans $F$. $F_{H\backslash G}$ est une formule.
+
+% paragraph substitution (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+
+Soit $F$ la formule $(( p \Rightarrow q ) \land p ) \Rightarrow \neg q$. Soit $G$ la sous-formule $(p \Rightarrow q)$. Soit $H$ la formule $(s \land t)$. $F_{H \backslash G}$ est la formule $(( s \land t ) \land p ) \Rightarrow \neg q$
+
+% paragraph exemple (end)
+
+% chapter logique_des_propositions (end)
+
+\end{document}
