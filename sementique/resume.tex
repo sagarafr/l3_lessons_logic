@@ -1,0 +1,248 @@
+\documentclass[11pt,twoside,openright,a4paper]{report}
+
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\selectlanguage{francais}
+
+\oddsidemargin 0.8cm
+\evensidemargin -0.2cm
+\textwidth 15cm
+\textheight 23cm
+\topmargin -0.5cm
+
+\renewcommand{\familydefault}{\sfdefault}
+
+% table of contents config
+
+\tocloftpagestyle{empty}
+\setcounter{tocdepth}{1}
+
+%
+
+%\usepackage{sectsty}
+\usepackage{fancyhdr}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\quad #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1\quad \thesection}}
+\lhead[\fancyplain{}{\raggedright\slshape\leftmark}]{}
+\chead{}
+\rhead[]{\fancyplain{}{\raggedleft\slshape\rightmark}}
+\lfoot[\fancyplain{}{\thepage}]{}
+\cfoot{}
+\rfoot[]{\fancyplain{\thepage}{\thepage}}
+
+%\setlength{\headrulewidth}{0.4pt}
+%\setlength{\footrulewidth}{0.4pt}
+%\setlength{\plainfootrulewidth}{0.4pt}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{amssymb}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\chapter{Sémentique} % (fold)
+\label{cha:s_mentique}
+
+\paragraph{Intérpretation} % (fold)
+\label{par:int_rpretation}
+
+Une interpretation I (ou valuation) est une application de l'ensemble des variables propsitionnelles dans l'ensemble des valeurs de vérité $\{0,1\}$.
+
+% paragraph int_rpretation (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+
+Soit un ensemble $P=\{p_1, p_2, \ldots\}$, un ensemble de variables propositionnelles. L'application $I$ telle que $I(p_1)=I(p_2)=\ldots=1$ est une intérpretation.
+
+% paragraph exemple (end)
+
+\paragraph{Tables de vérité} % (fold)
+\label{par:tables_de_v_rit_}
+
+Représentation simple de l'ensemble des intérprétations possibles sur une formule donnée $F$.
+
+% paragraph tables_de_v_rit_ (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+
+\begin{center}
+
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		$p$ & $q$ & $p \land q$ & $p \lor q$ & $p \Rightarrow q$ & $p \Leftrightarrow q$ \\
+		\hline
+		$1$ & $1$ & $1$ & $1$ & $1$ & $1$ \\
+		$1$ & $0$ & $0$ & $1$ & $0$ & $0$ \\
+		$0$ & $1$ & $0$ & $1$ & $1$ & $0$ \\
+		$0$ & $0$ & $0$ & $0$ & $1$ & $1$ \\
+		\hline
+	\end{tabular}
+
+\end{center}
+
+\begin{center}
+
+	\begin{tabular}{|c|c|}
+		\hline
+		$p$ & $\neg p$ \\
+		\hline
+		$1$ & $0$ \\
+		$0$ & $1$ \\
+		\hline
+	\end{tabular}
+	
+\end{center}
+
+% paragraph exemple (end)
+
+\paragraph{Formules équivalentes} % (fold)
+\label{par:formules_quivalentes}
+
+2 formules sont équivalentes si elles ont la même table de vérité. Pour montrer que 2 formules sont équivalentes, on peut passer par des équivalences remarquables.
+
+% paragraph formules_quivalentes (end)
+
+\paragraph{Équivalences remarquables} % (fold)
+\label{par:_quivalences_remarquables}
+
+\begin{itemize}
+	\item Idempotence :\\
+	
+	\begin{center}
+
+		\begin{tabular}{lr}
+			$F \lor F \equiv F$ & $F \land F \equiv F$ \\
+			$F \lor \top \equiv \top$ & $F \land \bot \equiv \bot$\\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Complémentarité :\\
+
+	\begin{center}
+
+		\begin{tabular}{lr}
+			$F \lor \neg F \equiv \top$ & $F \land \neg F \equiv \bot$ \\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Élément neutre :\\
+
+	\begin{center}
+
+		\begin{tabular}{lr}
+			$F \lor \bot \equiv F$ & $F \land \top \equiv F$ \\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Involution :\\
+
+	\begin{center}
+
+		\begin{tabular}{c}
+			$\neg \neg F \lor F \equiv F$ \\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Commutativité :\\
+
+	\begin{center}
+
+		\begin{tabular}{lr}
+			$F \lor G \equiv G \lor F$ & $F \land G \equiv G \land F$ \\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Associativité :\\
+
+	\begin{center}
+
+		\begin{tabular}{c}
+			$F \lor (G \lor H) \equiv (F \lor G) \lor H$ \\
+			$F \land (G \land H) \equiv (F \land G) \land H$ \\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Distributivité :\\
+
+	\begin{center}
+
+		\begin{tabular}{c}
+			$F \land (G \lor H) \equiv (F \land G) \lor (F \land H)$ \\
+			$F \lor (G \land H) \equiv (F \lor G) \land (F \lor H)$ \\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Absorption :\\
+
+	\begin{center}
+
+		\begin{tabular}{ll}
+			$F \land (F \lor G) \equiv F$ & $F \lor (F \land G) \equiv F$\\
+			$F \land (\neg F \lor G) \equiv F \land G$ & $F \lor (\neg F \land G) \equiv F \lor G$\\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Loi de De Morgan :\\
+
+	\begin{center}
+
+		\begin{tabular}{lr}
+			$\neg (F \land G) \equiv \neg F \lor \neg G$ & $\neg (F \lor G) \equiv \neg F \land \neg G$\\
+		\end{tabular}
+	
+	\end{center}
+
+	\item Autres :\\
+
+	\begin{enumerate}
+		\item $F \Rightarrow \bot \equiv \neg F$
+		\item $(F \Leftrightarrow G) \equiv (F \Rightarrow G) \land (G \Rightarrow F)$
+		\item $F \Rightarrow G \equiv \neg F \lor G \equiv \neg G \Rightarrow \neg F$
+		\item $F \Rightarrow (G \Rightarrow H) \equiv F \land G \Rightarrow H$
+	\end{enumerate}
+
+\end{itemize}
+
+% paragraph _quivalences_remarquables (end)
+
+\paragraph{Modèle} % (fold)
+\label{par:mod_le}
+
+Soit $I$ une intérprétation, $F$ une formule et $\Gamma = \{F_1, F_2, \ldots, F_n\}$, un ensemble de formules. $I$ est un modèle de $F$, noté $I \vDash F$, si $I(F) = 1$. $I$ est un modèle de $\Gamma$, si $I$ est un modèle de toutes formules de $F$ de l'ensemble $\Gamma$.
+
+% paragraph mod_le (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+
+\begin{itemize}
+	\item Soit $F$ la formule $p \Rightarrow q$. L'intérprétation $I$ telle que $I(p) = 1$ et $I(q) = 1$ est un modèle de $F$.
+	\item Soit $\Gamma = \{p \Rightarrow q, q \Rightarrow p, \top\}$. L'intérprétation $I$ telle que $I(p) = 1$ et $I(q) = 1$ est un modèle de $\Gamma$ car $I(p \Rightarrow q) = I(q \Rightarrow p) = I(\top) = 1$.
+\end{itemize}
+
+
+
+% paragraph exemple (end)
+
+% chapter s_mentique (end)
+
+\end{document}
