@@ -239,9 +239,121 @@ Soit $I$ une intérprétation, $F$ une formule et $\Gamma = \{F_1, F_2, \ldots, 
 	\item Soit $\Gamma = \{p \Rightarrow q, q \Rightarrow p, \top\}$. L'intérprétation $I$ telle que $I(p) = 1$ et $I(q) = 1$ est un modèle de $\Gamma$ car $I(p \Rightarrow q) = I(q \Rightarrow p) = I(\top) = 1$.
 \end{itemize}
 
+% paragraph exemple (end)
 
+\paragraph{Cohérente} % (fold)
+\label{par:coh_rente}
+
+L'ensemble $\Gamma$ est cohérent ou consistant, au sens sémantique, si l'on peut lui construire au moins un modèle, sinon il est incohérent ou inconsistant.
+
+% paragraph coh_rente (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+
+Les ensembles de formules suivants sont-ils consistants ?
+\begin{itemize}
+	\item $\Gamma_1 = \{a \lor b \lor c, \neg a \lor b, \neg a \lor c \lor \neg b, \neg c\}$\\
+	Oui car pour $I$ telle que $I(a)=0$, $I(b)=1$ et $I(c)=0$, on a :
+	\begin{itemize}
+		\item $I(a \lor b \lor c)=1$
+		\item $I(\neg a \lor b)=1$
+		\item $I(\neg a \lor c \lor \neg b)=1$
+		\item $I(\neg c)=1$
+	\end{itemize}
+	$I$ est un modèle pour chaque formule de $\Gamma_1$, elle est donc modèle de $\Gamma_1$.
+
+	\item $\Gamma_2 = \{a \lor b, \neg a, \neg b\}$\\
+	Non car il n'existe aucun modèle pour $\Gamma_2$, c'est-à-dire qu'il n'existe aucune interprétation $I$ telle que:
+	\begin{itemize}
+		\item $I(a \lor b) = I(\neg a) = I(\neg b) =1$.
+	\end{itemize}
+\end{itemize}
 
 % paragraph exemple (end)
+
+\paragraph{Tautologie} % (fold)
+\label{par:tautologie}
+
+Une formule $F$ est une tautologie si toute interprétation de $I$ est un modèle de $F$.
+
+% paragraph tautologie (end)
+
+\paragraph{Formule} % (fold)
+\label{par:formule}
+
+Une formule est :
+\begin{itemize}
+	\item soit une tautologie.
+	\item soit une formule contradiction : aucune interprétation n'est modèle.
+	\item soit une formule satisfiable.
+\end{itemize}
+
+% paragraph formule (end)
+
+\paragraph{Conséquence logique} % (fold)
+\label{par:cons_quence_logique}
+
+Soit $F$ une formule et $\Gamma = \{F_1,\ldots, F_n\}$, un ensemble de formule. La formule $F$ est une conséquence logique de $\Gamma$, notée $\Gamma \vDash F$, si tout molèle de $\Gamma$ est aussi modèle de $F$. En d'autres termes, pour toute interprétation $I$ telle que $I$ est modèle de $F_1, \ldots, F_n$, $I$ est également modèle de $F$.
+
+% paragraph cons_quence_logique (end)
+
+\paragraph{Exemple} % (fold)
+\label{par:exemple}
+
+$p \Rightarrow q$ est une conséquence logique de $\Gamma = \{q, p \lor q\}$. En effet, il existe deux modèle pour $\Gamma$ :
+\begin{itemize}
+	\item Le modèle $I$ telle que $I(q)=1$ et $I(p)=0$.
+	\item Le modèle $I$ telle que $I(q)=1$ et $I(p)=1$.
+\end{itemize}
+
+Ces deux modèles sont également modèle de $p \Rightarrow q$. On écrit alors $\{q, p \lor q\} \vDash p \Rightarrow q$.
+
+% paragraph exemple (end)
+
+\paragraph{Remarques} % (fold)
+\label{par:remarques}
+
+Le symbole $\vDash$ est utilisé en deux façons : $\Gamma \vDash F$ et $I \vDash F$. On écrit $G_1, \ldots, G_n \vDash F$, pour $\{G_1, \ldots, G_n\} \vDash F$. Pour $\varnothing \vDash F$, on écrit $ \vDash F$. F est une tautologie si et seulement si $ \vDash F$. On note que $\Gamma \not \vDash F$ si seulement si $F$ n'est pas une conséquence logique de $\Gamma$, c'est-à-dire qu'il existe un modèle de $\Gamma$, qui n'est pas modèle de F.
+
+% paragraph remarques (end)
+
+\paragraph{Remarques} % (fold)
+\label{par:remarques}
+
+Pour prouver $\Gamma \vDash F$, on a le choix, pour le moment entre plusieurs méthodes :
+
+\begin{enumerate}
+	\item Utilisation des tables de vérité.
+	\item Par l'absurde : en supposant que $F$ n'est pas une conséquence logique de $\Gamma$, c'est-à-dire qu'il existe un modèle de $\Gamma$ qui n'est pas modèle de $F$. On essaye ensuite d'aboutir à une contradiction.
+
+	\paragraph{Exemple} % (fold)
+	\label{par:exemple}
+	Montrons que $p \Rightarrow q, p \vDash q$. Supposons qu'il existe $I$ telle que :
+
+	\begin{enumerate}
+		\item $I(p \Rightarrow q)=1$.
+		\item $I(p)=1$.
+		\item $I(q)=0$.
+	\end{enumerate}
+
+	De b et c, ond déduit que $I(p \Rightarrow q)=0$, ce qui contredit a.
+
+	% paragraph exemple (end)
+
+	\item Utilisation des équivalences remarquables pour transfomer $F$ en une formule appartenant à $\Gamma$.
+
+	\paragraph{Exemple} % (fold)
+	\label{par:exemple}
+
+	Montrons que $p \Rightarrow q, p \vDash \neg(p \land \neg q)$.\\
+	Soit $\Gamma=\{p \Rightarrow q, p\}$ et $F$ la formule $\neg(p \land \neg q)$. Celle-ci est équivalente à $(\neg p \lor \neg \neg q)$, qui est équivalente à $(\neg p \lor q)$, qui est équivalente à $p \Rightarrow q$.\\
+	La conséquence logique est donc satisfaite.
+	% paragraph exemple (end)
+
+\end{enumerate}
+
+% paragraph remarques (end)
 
 % chapter s_mentique (end)
 
